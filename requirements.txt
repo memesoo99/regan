@@ -1,0 +1,8 @@
+torch
+os
+matplotlib
+numpy
+time
+cv2
+skimage
+jupyterlab 3.0이상이어야됨
