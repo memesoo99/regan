@@ -10,15 +10,18 @@ A simple implementation of https://arxiv.org/abs/2103.04379
 <br/>
 
 ### Checklist
-Labeller and few-shot model from [Github](https://github.com/bryandlee/repurpose-gan)
+Labeller and few-shot model from @bryandlee [Github](https://github.com/bryandlee/repurpose-gan)
 - [x] segmentation Labeling Tool
 - [x] Projector
 - [x] Few-shot Train
 - [x] Few-shot Test
 - [x] Auto-shot Train
-- [] Auto-shot Test
+- [o] Auto-shot Test
 
 ### Result
+
+![generated_data_000003](https://user-images.githubusercontent.com/68745418/137844467-47e27a6b-b03d-449d-8072-deee9756b203.png)
+![generated_label_000003](https://user-images.githubusercontent.com/68745418/137844477-a70f4a6c-7c23-4ed7-8dd7-f46b658f70fe.png)
 
 
 # How to Use
