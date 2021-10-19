@@ -22,6 +22,8 @@ Labeller and few-shot model from @bryandlee [Github](https://github.com/bryandle
 
 ![generated_data_000003](https://user-images.githubusercontent.com/68745418/137844467-47e27a6b-b03d-449d-8072-deee9756b203.png)
 ![generated_label_000003](https://user-images.githubusercontent.com/68745418/137844477-a70f4a6c-7c23-4ed7-8dd7-f46b658f70fe.png)
+![generated_data_000002](https://user-images.githubusercontent.com/68745418/137866319-cba203e4-f8c2-4a0c-b4d9-621e4099c36e.png)
+![generated_label_000002](https://user-images.githubusercontent.com/68745418/137866208-fb8e76b8-a9d5-478a-a734-eb0a160818d6.png)
 
 
 # How to Use
