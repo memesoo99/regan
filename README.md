@@ -2,6 +2,7 @@
 
 A simple implementation of https://arxiv.org/abs/2103.04379
 
+For styleGAN generator ckpt checkout -> https://github.com/rosinality/stylegan2-pytorch (FFHQ)
   
 <br/>
 
