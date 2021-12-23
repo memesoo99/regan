@@ -1,3 +1,6 @@
+2021.12.23 *minor errors soon to be fixed + cat version *
+
+
 # Repurposing GANs for segmentation
 
 A simple implementation of https://arxiv.org/abs/2103.04379
