@@ -1,5 +1,8 @@
 create_dataset : False
 seed : 1012
+n_samples : 2
+device : 'cuda:0'
+model_size: 'S' #'S','M','L'
 
 UNET:
   t_data : './dataset/images/'
@@ -9,15 +12,51 @@ UNET:
   batch_size : 4
   epoch : 1000
 
-######FewShotCNN######
+TEST:
+  test_data: '/home/genniferk/regan/dataset/projector_test.png' # path to directory or file
+  save_dir : './dataset/HUMAN/images'
+
+######FewShotSeg for various classes######
+# Below settings are all set to 1-shot train/test
+
 MODEL:
   HUMAN:
     classes : 'background,skin,hair,eye,eyebrow,nose,mouth,ear'
-    FewShotCNN : './checkpoint/FewShotCNN.pt' #fewShotCNN load path
-    PATH : './checkpoint/FewShotCNN.pt' #fewShotCNN output path
-    data_dir : './dataset_2/dataset.pkl' #important, 양식 맞추는거 중요
+    FewShotSeg : './checkpoint/FewShotSeg.pt' # Pretrained Segmentation network
+    OUTPUT_PATH : './checkpoint/FewShotSeg.pt' #FewShotSeg output path
+    data_dir: './dataset/HUMAN/human_1shot.pkl'
 
-    generator_path : './checkpoint/550000.pt'
+    generator_path : './checkpoint/ffhqhuman.pt'
     latent_dim : 512
     truncation : 0.7
     image_size : 256
+  DOG:
+    classes : 'background,face,eye,nose,mouth,ear'
+    FewShotSeg : './checkpoint/FewShotSeg_dog.pt' # Pretrained Segmentation network
+    OUTPUT_PATH : './checkpoint/FewShotSeg_dog.pt' #FewShotSeg output path
+    data_dir : './dataset/DOG/dog_1shot.pkl'
+
+    generator_path : './checkpoint/afhqcat.pt'
+    latent_dim : 512
+    truncation : 0.7
+    image_size : 512
+  CAT:
+    classes : 'background,face,eye,nose,mouth,ear'
+    FewShotSeg : './checkpoint/FewShotSeg_cat.pt' # Pretrained Segmentation network
+    OUTPUT_PATH : './checkpoint/FewShotSeg_cat.pt' #FewShotSeg output path
+    data_dir : './dataset/CAT/cat_1shot.pkl' 
+
+    generator_path : './checkpoint/afhqcat.pt'
+    latent_dim : 512
+    truncation : 0.7
+    image_size : 512
+  WILD:
+    classes : 'background,hair,face,eye,nose,mouth,ear'
+    FewShotSeg : './checkpoint/FewShotSeg_wild.pt' # Pretrained Segmentation network
+    OUTPUT_PATH : './checkpoint/FewShotSeg_wild.pt' #FewShotSeg output path
+    data_dir : './dataset/WILD/wild_1shot.pkl' 
+
+    generator_path : './checkpoint/afhqwild.pt'
+    latent_dim : 512
+    truncation : 0.7
+    image_size : 512
