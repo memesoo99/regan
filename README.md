@@ -5,7 +5,7 @@
 
 A simple implementation of https://arxiv.org/abs/2103.04379
 
-For styleGAN generator ckpt checkout -> https://github.com/rosinality/stylegan2-pytorch (FFHQ)
+For styleGAN generator ckpt `checkpoint/550000.pt` checkout -> https://github.com/rosinality/stylegan2-pytorch (FFHQ)
   
 <br/>
 
@@ -20,7 +20,7 @@ Labeller and few-shot model from @bryandlee [Github](https://github.com/bryandle
 - [x] Few-shot Train
 - [x] Few-shot Test
 - [x] Auto-shot Train
-- [o] Auto-shot Test
+- [ ] Auto-shot Test
 
 ### Result
 
@@ -34,7 +34,7 @@ Labeller and few-shot model from @bryandlee [Github](https://github.com/bryandle
 
 ### Labeller
 prepare your dataset by manually labeling the segmentation mask. 
-You might need a few, 2~3 train data
+You might need a few, 1~3 train data
 
 ### Few-shot Train
 FewShotCNN.pt 생성

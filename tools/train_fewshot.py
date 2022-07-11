@@ -9,14 +9,14 @@ import argparse
 import cv2
 from tqdm import tqdm
 from utils.auto import load_yaml
+from model.segmentation_model import FewShotCNN
+
 
 parser = argparse.ArgumentParser(description='Hyperparams')
 parser.add_argument('--config_path', help='config file path')
 args = parser.parse_args()
 config = load_yaml(args.config_path, args)
 
-
-from model.segmentation_model import FewShotCNN
 n_samples = 2
 PATH = config['PATH']
 device = 'cuda'
@@ -31,7 +31,7 @@ classes = config['classes'].split(',')
 net = FewShotCNN(data['features'].shape[1], len(classes), size='S')
 
 optimizer = torch.optim.Adam(net.parameters(), lr=0.001, weight_decay=0.001)
-scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=50, gamma=0.1)
+scheduler = torch.optim.lr_scheduler.Step LR(optimizer, step_size=50, gamma=0.1)
 labels = torch.tensor(data['labels']).long()
 net.train().to(device)
 start_time = time.time()

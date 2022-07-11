@@ -1,23 +1,23 @@
 create_dataset : False
-seed : 50
-######UNET######
-t_data : './dataset/images/'
-l_data : './dataset/labels/'
-test_image : './dataset/images/generated_data_000000.png'
-test_label : './dataset/labels/generated_label_000000.png'
-test_folderP : '/flush1/bat161/segmentation/New_Trails/venv/DATA/test_new_3C_I_ori/*'
-test_folderL : '/flush1/bat161/segmentation/New_Trails/venv/DATA/test_new_3C_L_ori/*'
-batch_size : 4
-epoch : 1000
+seed : 1012
+
+UNET:
+  t_data : './dataset/images/'
+  l_data : './dataset/labels/'
+  test_image : './dataset/images/generated_data_000000.png'
+  test_label : './dataset/labels/generated_label_000000.png'
+  batch_size : 4
+  epoch : 1000
 
 ######FewShotCNN######
-classes : 'background,skin,hair,eye,eyebrow,nose,mouth,ear'
-FewShotCNN : './checkpoint/FewShotCNN.pt' #fewShotCNN load path
-PATH : './checkpoint/FewShotCNN.pt' #fewShotCNN save path
-data_dir : './dataset_2/dataset.pkl' #important, 양식 맞추는거 중요
+MODEL:
+  HUMAN:
+    classes : 'background,skin,hair,eye,eyebrow,nose,mouth,ear'
+    FewShotCNN : './checkpoint/FewShotCNN.pt' #fewShotCNN load path
+    PATH : './checkpoint/FewShotCNN.pt' #fewShotCNN output path
+    data_dir : './dataset_2/dataset.pkl' #important, 양식 맞추는거 중요
 
-######GAN######
-generator_path : './checkpoint/550000.pt'
-latent_dim : 512
-truncation : 0.7
-image_size : 256
+    generator_path : './checkpoint/550000.pt'
+    latent_dim : 512
+    truncation : 0.7
+    image_size : 256
