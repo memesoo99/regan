@@ -22,11 +22,11 @@ TEST:
 MODEL:
   HUMAN:
     classes : 'background,skin,hair,eye,eyebrow,nose,mouth,ear'
-    FewShotSeg : './checkpoint/FewShotSeg.pt' # Pretrained Segmentation network
-    OUTPUT_PATH : './checkpoint/FewShotSeg.pt' #FewShotSeg output path
+    FewShotSeg : '../checkpoint/FewShotSeg.pt' # Pretrained Segmentation network
+    OUTPUT_PATH : '../checkpoint/FewShotSeg.pt' #FewShotSeg output path
     data_dir: './dataset/HUMAN/human_1shot.pkl'
 
-    generator_path : './checkpoint/ffhqhuman.pt'
+    generator_path : '/home/genniferk/regan/checkpoint/ffhqhuman.pt'
     latent_dim : 512
     truncation : 0.7
     image_size : 256
