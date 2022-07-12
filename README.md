@@ -10,7 +10,7 @@ For all the `generator .pt files` and `sample 1-shot dataset`, visit [Drive](htt
 <br/>
 
 ## Checklist
-Labeller from @bryandlee [Github](https://github.com/bryandlee/repurpose-gan)
+Labeller from @bryandlee
 - [x] segmentation Labeling Tool
 - [x] Projector
 - [x] Few-shot Train
