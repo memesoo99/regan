@@ -3,10 +3,9 @@
 
 A simple implementation of https://arxiv.org/abs/2103.04379
 
-For all the `generator .pt files` and `sample 1-shot dataset`, visit [Drive](https://drive.google.com/drive/folders/1uwazXGD_gxADuFRCRhB2McnT1kUFYf4v?usp=sharing)
+For all the `pretrained GAN generator` and `1-shot dataset sample`, visit [Drive](https://drive.google.com/drive/folders/1uwazXGD_gxADuFRCRhB2McnT1kUFYf4v?usp=sharing)
   
 <br/>
-
 <br/>
 
 ## Checklist
