@@ -56,11 +56,11 @@ python tools/test_fewshot.py --config './auto_shot.yaml'
 ### create_dataset
 data creation for auto_shot segmentation
 ```
-python tools/create_dataset.py --config_path './auto_shot.yaml'
+python utils/create_dataset.py --config_path './auto_shot.yaml' --mode 'HUMAN'
 ```
 
 ### Auto-shot Train
-Train UNET by using created dataset
+Train UNET with created dataset
 ```
 python tools/train_autoshot.py --config_path './auto_shot.yaml'
 ```
@@ -87,13 +87,13 @@ python tools/train_autoshot.py --config_path './auto_shot.yaml'
 ├──/utils
 │   ├── 2d_from_3d.py
 │   ├── projector.py
+│   ├── create_dataset.py.py
 │   └── auto.py
 ├──/tools
 │   ├── Data_Loader.py
 │   ├── train_fewshot.py
 │   ├── train_autoshot.py
 │   └── test_fewshot.py
-├──/create_dataset.py
 ├──/auto_shot.yaml
 └── ...
 
