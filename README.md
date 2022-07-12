@@ -7,11 +7,9 @@ For styleGAN generator ckpt `checkpoint/550000.pt` checkout -> https://drive.goo
   
 <br/>
 
-
-
 <br/>
 
-### Checklist
+## Checklist
 Labeller from @bryandlee [Github](https://github.com/bryandlee/repurpose-gan)
 - [x] segmentation Labeling Tool
 - [x] Projector
@@ -20,13 +18,11 @@ Labeller from @bryandlee [Github](https://github.com/bryandlee/repurpose-gan)
 - [x] Auto-shot Train
 - [ ] Auto-shot Test
 
-### Result
+## Result
+- All of the results are based on 1-shot segmentation. For more delicate results, enlarge 1-shot to n-shot (maybe 2-3)
+![스크린샷 2022-07-12 오후 2 39 54](https://user-images.githubusercontent.com/68745418/178416890-085e6c45-9882-4ca6-a60c-3b4a2f6ad71b.png)
 
-![generated_data_000003](https://user-images.githubusercontent.com/68745418/137844467-47e27a6b-b03d-449d-8072-deee9756b203.png)
-![generated_label_000003](https://user-images.githubusercontent.com/68745418/137844477-a70f4a6c-7c23-4ed7-8dd7-f46b658f70fe.png)
-![generated_data_000002](https://user-images.githubusercontent.com/68745418/137866319-cba203e4-f8c2-4a0c-b4d9-621e4099c36e.png)
-![generated_label_000002](https://user-images.githubusercontent.com/68745418/137866208-fb8e76b8-a9d5-478a-a734-eb0a160818d6.png)
-
+![스크린샷 2022-07-12 오후 2 41 11](https://user-images.githubusercontent.com/68745418/178417003-86a9714c-78d3-4a50-b373-a75703bf641f.png)
 
 # Requirements
 - Pytorch 1.12.0
@@ -64,7 +60,6 @@ Train UNET with created dataset
 ```
 python tools/train_autoshot.py --config_path './auto_shot.yaml'
 ```
-
 
 ```
 .
