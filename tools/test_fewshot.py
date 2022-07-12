@@ -1,58 +1,63 @@
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 import torch
 import argparse
 import matplotlib.pyplot as plt
-from projector import Projector
+from utils.projector import Projector
 from model.stylegan_model import Generator
-from model.segmentation_model import FewShotCNN
+from model.segmentation_model import FewShotSeg
 from utils.auto import load_yaml
 
 parser = argparse.ArgumentParser(description='Hyperparams')
 parser.add_argument('--config_path', help='config file path')
+parser.add_argument('--mode', help='person or horse or car. Mode of Model')
 args = parser.parse_args()
 config = load_yaml(args.config_path, args)
 
-device = 'cuda:1'
-generator_path = './checkpoint/550000.pt'
-FewShotCNN_path = './checkpoint/FewShotCNN.pt'
-image_size = 256
-latent_dim = 512
+if args.mode == "HUMAN":
+    config["MODEL"] = config["MODEL"]["HUMAN"]
+elif args.mode == "DOG":
+    config["MODEL"] = config["MODEL"]["DOG"]
+elif args.mode == "CAT":
+    config["MODEL"] = config["MODEL"]["CAT"]
+elif args.mode == "WILD":
+    config["MODEL"] = config["MODEL"]["WILD"]
 
+device = config["device"]
+generator_path = config["MODEL"]["generator_path"]
+FewShotSeg_path = config["MODEL"]["FewShotSeg"]
+image_size = config["MODEL"]["image_size"]
+latent_dim = config["MODEL"]["latent_dim"]
+save_dir = config["TEST"]["save_dir"]
 
-projector = Projector(ckpt=generator_path, size = 256,step=100)
+projector = Projector(ckpt=generator_path, size = image_size ,step=100)
 
+# Check FILE
+if os.path.isdir(config["TEST"]["test_data"]):
+    file = os.listdir(config["TEST"]["test_data"])
+elif os.path.isfile(config["TEST"]["test_data"]):
+    file = [config["TEST"]["test_data"]] 
 
-
-#file paths should be given as lists
-file = ['./dataset/images/generated_data_000029.png'] #os.listdir() recommended
-
-classes = config['classes']
+classes = config["MODEL"]['classes']
 
 projected_result = projector.project(file)
 sh = list(projected_result.values())[0]['features'].shape[1]
 
-net = torch.load(FewShotCNN_path)
+net = torch.load(FewShotSeg_path)
 
-# net = FewShotCNN(sh, len(classes), size='S')
-# net.load_state_dict(torch.load(FewShotCNN_path))
 device = 'cpu'
 net.eval().to(device)
 
 for i in projected_result.keys():
-
-    print(i)
     image_name = i.split('/')[-1].split('.')[0] + '-project_label.png'
-    print(image_name)
     features = projected_result[i]['features'].to('cpu')
-    print(features.shape)
     torch.cuda.empty_cache()
     out = net(features)
-    print("a",features.shape)
-    print("b",type(features))
     predictions = out.data.max(1)[1].cpu().numpy()
-    print(predictions.shape)
-    print(type(predictions))
-    print(predictions)
-    plt.imsave(image_name, predictions)
+    plt.imsave(os.path.join(save_dir,image_name), predictions)
+
+print(f"projected result saved to {save_dir}")
     
 
 
