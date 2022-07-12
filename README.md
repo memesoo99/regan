@@ -3,7 +3,7 @@
 
 A simple implementation of https://arxiv.org/abs/2103.04379
 
-For styleGAN generator ckpt `checkpoint/550000.pt` checkout -> https://drive.google.com/file/d/1PQutd-JboOCOZqmd95XWxWrO8gGEvRcO/view (FFHQ)
+For all the `generator .pt files` and `sample 1-shot dataset`, visit [Drive](https://drive.google.com/drive/folders/1uwazXGD_gxADuFRCRhB2McnT1kUFYf4v?usp=sharing)
   
 <br/>
 
