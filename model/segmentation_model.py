@@ -7,7 +7,7 @@ def ConvLReLU(in_ch, out_ch, kernel_size, dilation):
         nn.LeakyReLU(inplace=True)
     )
 
-class FewShotCNN(nn.Module):
+class FewShotSeg(nn.Module):
     def __init__(self, in_ch, n_class, size='S'):
         super().__init__()
         

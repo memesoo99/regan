@@ -1,23 +1,66 @@
 create_dataset : False
-seed : 50
-######UNET######
-t_data : './dataset/images/'
-l_data : './dataset/labels/'
-test_image : './dataset/images/generated_data_000000.png'
-test_label : './dataset/labels/generated_label_000000.png'
-test_folderP : '/flush1/bat161/segmentation/New_Trails/venv/DATA/test_new_3C_I_ori/*'
-test_folderL : '/flush1/bat161/segmentation/New_Trails/venv/DATA/test_new_3C_L_ori/*'
-batch_size : 4
-epoch : 1000
+seed : 1012
+n_samples : 1
+device : 'cuda:0'
+model_size: 'S' #'S','M','L'
 
-######FewShotCNN######
-classes : 'background,skin,hair,eye,eyebrow,nose,mouth,ear'
-FewShotCNN : './checkpoint/FewShotCNN.pt' #fewShotCNN load path
-PATH : './checkpoint/FewShotCNN.pt' #fewShotCNN save path
-data_dir : './dataset_2/dataset.pkl' #important, 양식 맞추는거 중요
+UNET:
+  t_data : './dataset/images/'
+  l_data : './dataset/labels/'
+  test_image : './dataset/images/generated_data_000000.png'
+  test_label : './dataset/labels/generated_label_000000.png'
+  batch_size : 4
+  epoch : 1000
 
-######GAN######
-generator_path : './checkpoint/550000.pt'
-latent_dim : 512
-truncation : 0.7
-image_size : 256
+TEST:
+  test_data: 'projector_test.png' # path to directory or file
+  save_dir : './dataset/HUMAN/images'
+
+######FewShotSeg for various classes######
+# Below settings are all set to 1-shot train/test
+
+MODEL:
+  HUMAN:
+    classes : 'background,skin,hair,eye,eyebrow,nose,mouth,ear'
+    FewShotSeg : './checkpoint/FewShotSeg_human.pt' # Pretrained Segmentation network
+    OUTPUT_PATH : './checkpoint/FewShotSeg_human.pt' #FewShotSeg output path
+    data_dir: './dataset/HUMAN/human_1shot.pkl'
+
+    generator_path : '/home/genniferk/regan/checkpoint/ffhqhuman.pt'
+    latent_dim : 512
+    truncation : 0.7
+    image_size : 256
+    feature_dim : 5376
+  DOG:
+    classes : 'background,face,eye,nose,mouth,ear'
+    FewShotSeg : './checkpoint/FewShotSeg_dog.pt' # Pretrained Segmentation network
+    OUTPUT_PATH : './checkpoint/FewShotSeg_dog.pt' #FewShotSeg output path
+    data_dir : './dataset/DOG/dog_1shot.pkl'
+
+    generator_path : './checkpoint/afhqcat.pt'
+    latent_dim : 512
+    truncation : 0.7
+    image_size : 512
+    feature_dim : 5504
+  CAT:
+    classes : 'background,face,eye,nose,mouth,ear'
+    FewShotSeg : './checkpoint/FewShotSeg_cat.pt' # Pretrained Segmentation network
+    OUTPUT_PATH : './checkpoint/FewShotSeg_cat.pt' #FewShotSeg output path
+    data_dir : './dataset/CAT/cat_1shot.pkl' 
+
+    generator_path : './checkpoint/afhqcat.pt'
+    latent_dim : 512
+    truncation : 0.7
+    image_size : 512
+    feature_dim : 5504
+  WILD:
+    classes : 'background,hair,face,eye,nose,mouth,ear'
+    FewShotSeg : './checkpoint/FewShotSeg_wild.pt' # Pretrained Segmentation network
+    OUTPUT_PATH : './checkpoint/FewShotSeg_wild.pt' #FewShotSeg output path
+    data_dir : './dataset/WILD/wild_1shot.pkl' 
+
+    generator_path : './checkpoint/afhqwild.pt'
+    latent_dim : 512
+    truncation : 0.7
+    image_size : 512
+    features_dim : 5504

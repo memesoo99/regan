@@ -1,3 +1,6 @@
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 import torch.nn.functional as F
 import pickle
 import torch
@@ -8,27 +11,38 @@ import copy
 import argparse
 import cv2
 from tqdm import tqdm
+from model.segmentation_model import FewShotSeg
 from utils.auto import load_yaml
+
+
 
 parser = argparse.ArgumentParser(description='Hyperparams')
 parser.add_argument('--config_path', help='config file path')
+parser.add_argument('--mode', help='person or horse or car. Mode of Model')
 args = parser.parse_args()
 config = load_yaml(args.config_path, args)
 
+if args.mode == "HUMAN":
+    config["MODEL"] = config["MODEL"]["HUMAN"]
+elif args.mode == "DOG":
+    config["MODEL"] = config["MODEL"]["DOG"]
+elif args.mode == "CAT":
+    config["MODEL"] = config["MODEL"]["CAT"]
+elif args.mode == "WILD":
+    config["MODEL"] = config["MODEL"]["WILD"]
 
-from model.segmentation_model import FewShotCNN
-n_samples = 2
-PATH = config['PATH']
-device = 'cuda'
 
+n_samples = config['n_samples']
+OUTPUT_PATH = config["MODEL"]['OUTPUT_PATH']
+device = config["device"]
+model_size = config["model_size"]
 
-with open(config['data_dir'],"rb") as fw:
+with open(config["MODEL"]['data_dir'],"rb") as fw:
     data = pickle.load(fw)
     
+classes = config["MODEL"]['classes'].split(',')
 
-classes = config['classes'].split(',')
-
-net = FewShotCNN(data['features'].shape[1], len(classes), size='S')
+net = FewShotSeg(data['features'].shape[1], len(classes), size=model_size)
 
 optimizer = torch.optim.Adam(net.parameters(), lr=0.001, weight_decay=0.001)
 scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=50, gamma=0.1)
@@ -57,5 +71,6 @@ for epoch in tqdm(range(1, 100+1)):
         print(f'{epoch:5}-th epoch | loss: {loss.item():6.4f} | time: {time.time()-start_time:6.1f}sec')
 
     scheduler.step()
-    torch.save(net, PATH)  # 전체 모델 저장
-print('Done! model saved to ',PATH)
+    torch.save(net, OUTPUT_PATH)  # save trained model
+    
+print('Done! model saved to ',OUTPUT_PATH)

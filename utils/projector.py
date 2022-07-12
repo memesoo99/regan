@@ -12,8 +12,6 @@ from tqdm import tqdm
 import lpips
 from model.stylegan_model import Generator
 
-# python projector.py --ckpt './checkpoint/550000.pt' --size 256 resuzed_me.jpg
-
 class Projector():
     def __init__(self, ckpt, size = 256, lr_rampup = 0.05, lr_rampdown = 0.25, lr = 0.1, noise = 0.05, noise_ramp = 0.75, step = 1000, noise_regularize_ = 1e5, mse = 0,w_plus = False):
         super().__init__()
@@ -92,7 +90,7 @@ class Projector():
 
     def project(self, files):
         
-        device = "cuda"
+        device = "cpu"
 
     
         n_mean_latent = 10000
@@ -117,7 +115,7 @@ class Projector():
         imgs = torch.stack(imgs, 0).to(device)
 
         g_ema = Generator(self.size, 512, 8)
-        g_ema_ckpt = torch.load(self.ckpt, map_location='cuda')
+        g_ema_ckpt = torch.load(self.ckpt, map_location='cpu')
         g_ema.load_state_dict(g_ema_ckpt["g_ema"], strict=False)
         g_ema.eval()
         g_ema = g_ema.to(device)
@@ -129,8 +127,11 @@ class Projector():
             latent_mean = latent_out.mean(0)
             latent_std = ((latent_out - latent_mean).pow(2).sum() / n_mean_latent) ** 0.5
 
-        percept = lpips.PerceptualLoss(
-            model="net-lin", net="vgg", use_gpu=device.startswith("cuda")
+        # percept = lpips.LPIPS(
+        #     model="net-lin", net="vgg", use_gpu=device.startswith("cpu")
+        # )
+        percept = lpips.LPIPS(
+            net="vgg"
         )
 
         noises_single = g_ema.make_noise()

@@ -1,11 +1,9 @@
-2021.12.23 *minor errors soon to be fixed + cat version *
-
 
 # Repurposing GANs for segmentation
 
 A simple implementation of https://arxiv.org/abs/2103.04379
 
-For styleGAN generator ckpt checkout -> https://github.com/rosinality/stylegan2-pytorch (FFHQ)
+For styleGAN generator ckpt `checkpoint/550000.pt` checkout -> https://drive.google.com/file/d/1PQutd-JboOCOZqmd95XWxWrO8gGEvRcO/view (FFHQ)
   
 <br/>
 
@@ -14,13 +12,13 @@ For styleGAN generator ckpt checkout -> https://github.com/rosinality/stylegan2-
 <br/>
 
 ### Checklist
-Labeller and few-shot model from @bryandlee [Github](https://github.com/bryandlee/repurpose-gan)
+Labeller from @bryandlee [Github](https://github.com/bryandlee/repurpose-gan)
 - [x] segmentation Labeling Tool
 - [x] Projector
 - [x] Few-shot Train
 - [x] Few-shot Test
 - [x] Auto-shot Train
-- [o] Auto-shot Test
+- [ ] Auto-shot Test
 
 ### Result
 
@@ -30,53 +28,54 @@ Labeller and few-shot model from @bryandlee [Github](https://github.com/bryandle
 ![generated_label_000002](https://user-images.githubusercontent.com/68745418/137866208-fb8e76b8-a9d5-478a-a734-eb0a160818d6.png)
 
 
+# Requirements
+- Pytorch 1.12.0
+- CUDA 11.6
+- supports single GPU
+
 # How to Use
 
+## 1. Prepare Your Dataset
 ### Labeller
-prepare your dataset by manually labeling the segmentation mask. 
-You might need a few, 2~3 train data
+- prepare your dataset by manually labeling the segmentation mask. 
+- You might need a few, 1~3 train data.
+- `Provided labeled dataset are all 1-shot`
 
+## 2. Train your few-shot segmentation Model
 ### Few-shot Train
-FewShotCNN.pt 생성
 ```
-python train_fewshot.py --config_path './auto_shot.yaml'
+python tools/train_fewshot.py --config_path './auto_shot.yaml' --mode 'HUMAN'
 ```
 
 ### Few-shot Test
-1.projector.py에서 원하는 이미지의 latent vector추출
-2.fewshot CNN에 넣음
+- Segment your own custom image(not GAN generated image).
 ```
-python test_fewshot.py --config auto_shot.yaml
-```
-
-### Auto-shot Train
-FewShotCNN에서 생성 + labeling한 dataset으로 UNET 훈련
-```
-python train_autoshot.py --config_path './auto_shot.yaml'
+python tools/test_fewshot.py --config './auto_shot.yaml'
 ```
 
 ### create_dataset
 data creation for auto_shot segmentation
-5 example data given
 ```
-python create_dataset.py --config_path 'auto_shot.yaml'
+python utils/create_dataset.py --config_path './auto_shot.yaml' --mode 'HUMAN'
 ```
 
+### Auto-shot Train
+Train UNET with created dataset
+```
+python tools/train_autoshot.py --config_path './auto_shot.yaml'
+```
 
 
 ```
 .
 ├──/checkpoint
-|   ├── 550000.pt (pretrained Style-GAN2 generator ckpt)
-|   ├── FewShotCNN.pt (pretrained FewShotCNN.pt)
+|   └── pretrained StyleGAN2 weights 
 ├──/dataset
-│   ├── images
-│         ├── generated_data_0000001.png
-│         └── ...
-│   ├── labels
-│         ├── generated_label_0000001.png
-│         └── ...
-│   └── dataset.pkl
+│   ├── CAT
+│         └── cat_1shot.pkl
+│   ├── DOG
+│   ├── HUMAN
+│   └── WILD
 ├──/model
 │   ├── segmentation_model.py
 │   ├── stylegan_model.py
@@ -87,12 +86,19 @@ python create_dataset.py --config_path 'auto_shot.yaml'
 │   └── Metrics.py
 ├──/utils
 │   ├── 2d_from_3d.py
+│   ├── projector.py
+│   ├── create_dataset.py.py
 │   └── auto.py
-├──/create_dataset.py
-├──/projector.py
+├──/tools
+│   ├── Data_Loader.py
+│   ├── train_fewshot.py
+│   ├── train_autoshot.py
+│   └── test_fewshot.py
 ├──/auto_shot.yaml
 └── ...
 
 
 ```
 
+### Useful Site
+https://colab.research.google.com/github/dvschultz/stylegan2-ada-pytorch/blob/main/SG2_ADA_PT_to_Rosinality.ipynb
