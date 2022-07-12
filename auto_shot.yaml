@@ -13,7 +13,7 @@ UNET:
   epoch : 1000
 
 TEST:
-  test_data: '/home/genniferk/regan/dataset/projector_test.png' # path to directory or file
+  test_data: 'projector_test.png' # path to directory or file
   save_dir : './dataset/HUMAN/images'
 
 ######FewShotSeg for various classes######
