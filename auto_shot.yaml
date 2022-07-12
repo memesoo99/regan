@@ -1,6 +1,6 @@
 create_dataset : False
 seed : 1012
-n_samples : 2
+n_samples : 1
 device : 'cuda:0'
 model_size: 'S' #'S','M','L'
 
@@ -22,14 +22,15 @@ TEST:
 MODEL:
   HUMAN:
     classes : 'background,skin,hair,eye,eyebrow,nose,mouth,ear'
-    FewShotSeg : '../checkpoint/FewShotSeg.pt' # Pretrained Segmentation network
-    OUTPUT_PATH : '../checkpoint/FewShotSeg.pt' #FewShotSeg output path
+    FewShotSeg : './checkpoint/FewShotSeg_human.pt' # Pretrained Segmentation network
+    OUTPUT_PATH : './checkpoint/FewShotSeg_human.pt' #FewShotSeg output path
     data_dir: './dataset/HUMAN/human_1shot.pkl'
 
     generator_path : '/home/genniferk/regan/checkpoint/ffhqhuman.pt'
     latent_dim : 512
     truncation : 0.7
     image_size : 256
+    feature_dim : 5376
   DOG:
     classes : 'background,face,eye,nose,mouth,ear'
     FewShotSeg : './checkpoint/FewShotSeg_dog.pt' # Pretrained Segmentation network
@@ -40,6 +41,7 @@ MODEL:
     latent_dim : 512
     truncation : 0.7
     image_size : 512
+    feature_dim : 5504
   CAT:
     classes : 'background,face,eye,nose,mouth,ear'
     FewShotSeg : './checkpoint/FewShotSeg_cat.pt' # Pretrained Segmentation network
@@ -50,6 +52,7 @@ MODEL:
     latent_dim : 512
     truncation : 0.7
     image_size : 512
+    feature_dim : 5504
   WILD:
     classes : 'background,hair,face,eye,nose,mouth,ear'
     FewShotSeg : './checkpoint/FewShotSeg_wild.pt' # Pretrained Segmentation network
@@ -60,3 +63,4 @@ MODEL:
     latent_dim : 512
     truncation : 0.7
     image_size : 512
+    features_dim : 5504
