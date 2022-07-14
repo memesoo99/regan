@@ -95,4 +95,4 @@ python tools/train_autoshot.py --config_path './auto_shot.yaml'
 ```
 
 ### Useful Site
-https://colab.research.google.com/github/dvschultz/stylegan2-ada-pytorch/blob/main/SG2_ADA_PT_to_Rosinality.ipynb
+[SG2-ADA-PT to Rosinality.ipynb] (https://colab.research.google.com/github/dvschultz/stylegan2-ada-pytorch/blob/main/SG2_ADA_PT_to_Rosinality.ipynb)
