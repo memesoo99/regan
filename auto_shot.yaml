@@ -13,8 +13,13 @@ UNET:
   epoch : 1000
 
 TEST:
+  own : False # inference with my own(not generated) image
+  imshow_size : 3
+  n_test : 4
+  save : True
   test_data: 'projector_test.png' # path to directory or file
-  save_dir : './dataset/HUMAN/images'
+  img_save_dir : './dataset/HORSE/images'
+  label_save_dir : './dataset/HORSE/labels'
 
 ######FewShotSeg for various classes######
 # Below settings are all set to 1-shot train/test
@@ -60,6 +65,17 @@ MODEL:
     data_dir : './dataset/WILD/wild_1shot.pkl' 
 
     generator_path : './checkpoint/afhqwild.pt'
+    latent_dim : 512
+    truncation : 0.7
+    image_size : 512
+    features_dim : 5504
+  HORSE:
+    classes : 'background,hair,face,eye,nose,mouth,ear'
+    FewShotSeg : './checkpoint/FewShotSeg_horse.pt' # Pretrained Segmentation network
+    OUTPUT_PATH : './checkpoint/FewShotSeg_horse.pt' #FewShotSeg output path
+    data_dir : './dataset/HORSE/horse_1shot.pkl' 
+
+    generator_path : './checkpoint/lsunhorse.pt'
     latent_dim : 512
     truncation : 0.7
     image_size : 512

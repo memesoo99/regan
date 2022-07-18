@@ -45,7 +45,7 @@ python tools/train_fewshot.py --config_path './auto_shot.yaml' --mode 'HUMAN'
 ### Few-shot Test
 - Segment your own custom image(not GAN generated image).
 ```
-python tools/test_fewshot.py --config './auto_shot.yaml'
+python tools/test_fewshot.py --config './auto_shot.yaml' --mode 'HORSE'
 ```
 
 ### create_dataset
