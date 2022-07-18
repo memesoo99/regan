@@ -30,6 +30,8 @@ elif args.mode == "CAT":
     config["MODEL"] = config["MODEL"]["CAT"]
 elif args.mode == "WILD":
     config["MODEL"] = config["MODEL"]["WILD"]
+elif args.mode == "HORSE":
+    config["MODEL"] = config["MODEL"]["HORSE"]
 
 
 n_samples = config['n_samples']
